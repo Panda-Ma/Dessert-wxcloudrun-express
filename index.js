@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -19,7 +18,7 @@ app.use(logger);
 app.use('/',index)
 app.use('/order',order)
 
-const port = 80;
+const port = process.env.PORT || 80;
 
 async function bootstrap() {
   await initDB();
