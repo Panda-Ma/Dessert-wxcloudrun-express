@@ -19,7 +19,7 @@ app.use(logger);
 app.use('/',index)
 app.use('/order',order)
 
-const port = process.env.PORT || 80;
+const port = 80;
 
 async function bootstrap() {
   await initDB();
