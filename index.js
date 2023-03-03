@@ -5,8 +5,8 @@ const { init: initDB } = require("./db");
 const logger = morgan("tiny");
 const app = express();
 
-const index=require('./router/index')
-const order=require('./router/order')
+const index=require('./router/index.js')
+const order=require('./router/order.js')
 
 
 app.use(express.urlencoded({ extended: false }));
