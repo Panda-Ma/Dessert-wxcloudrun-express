@@ -5,6 +5,7 @@ const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
 
 const [host, port] = MYSQL_ADDRESS.split(":");
 
+// 连接数据库
 const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   host,
   port,
@@ -22,7 +23,11 @@ const Counter = sequelize.define("Counter", {
 
 // 数据库初始化方法
 async function init() {
-  await Counter.sync({ alter: true });
+  // 模型同步
+  // await Counter.sync({ alter: true });
+
+  // 一次同步所有模型
+  await sequelize.sync({ alter: true });
 }
 
 // 导出初始化方法和模型
