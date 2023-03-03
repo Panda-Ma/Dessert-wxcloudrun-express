@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require('express')
 const router = express.Router()
-const { Counter } = require("./db");
+const { Counter } = require("../db");
 
 // 首页
 router.get("/", async (req, res) => {
