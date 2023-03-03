@@ -5,7 +5,7 @@ const { Counter } = require("../db");
 
 // 首页
 router.get("/", async (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.resolve(__dirname, "../index.html"));
 });
 
 // 更新计数
