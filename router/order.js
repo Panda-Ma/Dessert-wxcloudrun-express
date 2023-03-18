@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {List, Good} = require('../db')
-router.get('/order/getInfo', async (req, res) => {
+router.get('/getInfo', async (req, res) => {
     const list = await List.findAll()
     let goods = []
     // 查询同一种类的商品
