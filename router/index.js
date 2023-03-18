@@ -5,6 +5,7 @@ const { Counter } = require("../db");
 
 // 首页
 router.get("/", async (req, res) => {
+    // 需要传入文件的绝对路径
     res.sendFile(path.resolve(__dirname, "../index.html"));
 });
 
