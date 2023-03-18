@@ -56,7 +56,7 @@ const Good=sequelize.define('good',{
     comment: '商品介绍',
   },
   price: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DECIMAL(10,1),
     comment: '商品单价',
   },
   listId:{
