@@ -31,6 +31,8 @@ const List=sequelize.define("List",{
   name:{
     type:DataTypes.STRING
   }
+},{
+  timestamps: false
 })
 
 const Good=sequelize.define('good',{
