@@ -8,7 +8,7 @@ router.get('/getInfo', async (req, res) => {
     for (const listElement of list) {
         const good = await Good.findAll({
             where: {
-                id: listElement.id,
+                listId: listElement.id,
             },
         })
         goods.push(good)
