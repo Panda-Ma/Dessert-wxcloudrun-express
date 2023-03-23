@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/getUserInfo', async (req, res) => {
     console.log(req);
     res.send({
         code: 200,
