@@ -1,13 +1,12 @@
 const express = require('express')
+const {List, Good} = require("../db");
 const router = express.Router()
 
-router.get('/getUserInfo', async (req, res) => {
-    // console.log(req);
+router.get('/getUser', async (req, res) => {
     res.send({
         code: 200,
         data: {
-            // openId: req.headers['X-WX-OPENID'],
-            req:req,
+            req:req
         },
     })
 })
