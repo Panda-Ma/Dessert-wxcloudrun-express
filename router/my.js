@@ -39,6 +39,7 @@ router.post('/redeem', async (req, res) => {
             code: 200,
             data: {
                 msg: '优惠卷无效',
+                code
             },
         })
     } else if (coupon[0].isValid) {
