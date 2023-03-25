@@ -30,7 +30,7 @@ const User=sequelize.define("User",{
   },
   openid: {
     type: DataTypes.STRING,
-    comment: '用户名(openid)',
+    comment: '小程序用户(openid)',
     unique:true
   },
   balance:{
@@ -97,6 +97,35 @@ const Good=sequelize.define('good',{
   timestamps: false
 })
 
+const Coupon=sequelize.define("Coupon",{
+  id:{
+    type: DataTypes.INTEGER,
+    primaryKey:true,
+    autoIncrement:true,
+    comment:'主键'
+  },
+  userId:{
+    type: DataTypes.INTEGER,
+    comment:'兑换用户Id',
+    references: {
+      model:User,
+      key:'id'
+    }
+  },
+  code:{
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    comment:'UUID优惠卷卷码'
+  },
+  isValid:{
+    type:DataTypes.BOOLEAN,
+    defaultValue:true,
+    comment:'是否有效'
+  },
+},{
+  timestamps: false
+})
+
 // 数据库初始化方法
 async function init() {
   // 模型同步
@@ -112,5 +141,6 @@ module.exports = {
   Counter,
   List,
   Good,
-  User
+  User,
+  Coupon
 };

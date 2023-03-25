@@ -1,22 +1,53 @@
 const express = require('express')
 const router = express.Router()
-const {User} = require('../db')
+const {User, Coupon} = require('../db')
 
 router.get('/getUser', async (req, res) => {
     const openid = req.headers['x-wx-openid']
-    let user = await User.findAll({
+
+    const [user, created] = await User.findOrCreate({
         where: {
             openid: openid,
         },
     })
-
-    if (JSON.stringify(user) === '{}') user = await User.create({openid: openid})
     res.send({
         code: 200,
         data: {
-            openid: user[0].openid,
-            balance: user[0].balance,
+            openid: user.openid,
+            balance: user.balance,
         },
     })
+})
+router.post('/redeem', async (req, res) => {
+    const {code} = req.body
+    let coupon = await Coupon.findAll({
+        where: {
+            code: code,
+        },
+    })
+    if (JSON.stringify((coupon) === '{}')) {
+        res.send({
+            code: 200,
+            data: {
+                msg: '优惠卷无效',
+            },
+        })
+    } else if (coupon[0].isValid) {
+        coupon[0].isValid=false
+        await coupon[0].save()
+        res.send({
+            code: 200,
+            data: {
+                msg: '兑换成功',
+            },
+        })
+    } else {
+        res.send({
+            code: 200,
+            data: {
+                msg: '优惠卷已使用',
+            },
+        })
+    }
 })
 module.exports = router
