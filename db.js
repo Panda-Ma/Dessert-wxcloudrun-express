@@ -28,7 +28,7 @@ const User=sequelize.define("User",{
     autoIncrement:true,
     comment:'主键'
   },
-  name: {
+  openid: {
     type: DataTypes.STRING,
     comment: '用户名(openid)',
     unique:true
