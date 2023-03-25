@@ -4,7 +4,7 @@ const {User} = require('../db')
 
 router.get('/getUser', async (req, res) => {
     const openid = req.headers['x-wx-openid']
-    let user = User.findAll({
+    let user = await User.findAll({
         where: {
             openid: openid,
         },
@@ -14,9 +14,8 @@ router.get('/getUser', async (req, res) => {
     res.send({
         code: 200,
         data: {
-            // openid: user[0].openid,
-            // balance: user[0].balance,
-            user:user
+            openid: user[0].openid,
+            balance: user[0].balance,
         },
     })
 })
