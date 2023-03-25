@@ -14,8 +14,8 @@ router.get('/getUser', async (req, res) => {
     res.send({
         code: 200,
         data: {
-            openid: user[0].openid,
-            balance: user[0].balance,
+            // openid: user[0].openid,
+            // balance: user[0].balance,
             user:user
         },
     })
