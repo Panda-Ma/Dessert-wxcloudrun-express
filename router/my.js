@@ -10,13 +10,12 @@ router.get('/getUser', async (req, res) => {
         },
     })
 
-    if (!user) user = await User.create({openid: openid})
+    if (JSON.stringify(user) === '{}') user = await User.create({openid: openid})
     res.send({
         code: 200,
         data: {
             openid: user.openid,
-            balance:user.balance,
-            user
+            balance: user.balance,
         },
     })
 })
