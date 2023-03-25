@@ -34,6 +34,13 @@ router.post('/redeem', async (req, res) => {
             code: code,
         },
     })
+    const openid = req.headers['x-wx-openid']
+    const user=await User.findAll({
+        where:{
+            openid:openid
+        }
+    })
+
     if (JSON.stringify(coupon) === '{}') {
         res.send({
             code: 200,
@@ -42,14 +49,8 @@ router.post('/redeem', async (req, res) => {
             },
         })
     } else if (coupon[0].isValid) { //优惠卷有效
-        const openid = req.headers['x-wx-openid']
-        const user=await User.findAll({
-            where:{
-                openid:openid
-            }
-        })
         //修改账户余额
-        user[0].balance+=coupon[0].limit
+        user[0].balance=Number(coupon[0].limit)+Number(user[0].balance)
         await user[0].save()
         //修改优惠卷信息
         coupon[0].userId=user[0].id
