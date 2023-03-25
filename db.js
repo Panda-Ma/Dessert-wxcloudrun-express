@@ -122,6 +122,11 @@ const Coupon=sequelize.define("Coupon",{
     defaultValue:true,
     comment:'是否有效'
   },
+  limit: {
+    type: DataTypes.DECIMAL(10,1),
+    comment: '额度',
+    defaultValue:100
+  },
 },{
   timestamps: false
 })

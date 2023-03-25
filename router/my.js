@@ -49,8 +49,8 @@ router.post('/redeem', async (req, res) => {
             }
         })
         //修改账户余额
-        user[0].balance+=1
-        user[0].save()
+        user[0].balance+=coupon[0].limit
+        await user[0].save()
         //修改优惠卷信息
         coupon[0].userId=user[0].id
         coupon[0].isValid=false
