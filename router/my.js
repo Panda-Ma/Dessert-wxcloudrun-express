@@ -34,21 +34,24 @@ router.post('/redeem', async (req, res) => {
             code: code,
         },
     })
-    if (JSON.stringify((coupon) === '{}')) {
+    if (JSON.stringify(coupon) === '{}') {
         res.send({
             code: 200,
             data: {
                 msg: '优惠卷无效',
-                code
             },
         })
-    } else if (coupon[0].isValid) {
+    } else if (coupon[0].isValid) { //优惠卷有效
         const openid = req.headers['x-wx-openid']
         const user=await User.findAll({
             where:{
                 openid:openid
             }
         })
+        //修改账户余额
+        user[0].balance+=1
+        user[0].save()
+        //修改优惠卷信息
         coupon[0].userId=user[0].id
         coupon[0].isValid=false
         await coupon[0].save()
