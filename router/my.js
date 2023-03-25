@@ -18,6 +18,15 @@ router.get('/getUser', async (req, res) => {
         },
     })
 })
+router.get('/createCoupon',async (req,res)=>{
+    const coupon=await Coupon.create({})
+    res.send({
+        code:200,
+        data:{
+            msg:'创建成功'
+        }
+    })
+})
 router.post('/redeem', async (req, res) => {
     const {code} = req.body
     let coupon = await Coupon.findAll({
@@ -33,6 +42,13 @@ router.post('/redeem', async (req, res) => {
             },
         })
     } else if (coupon[0].isValid) {
+        const openid = req.headers['x-wx-openid']
+        const user=await User.findAll({
+            where:{
+                openid:openid
+            }
+        })
+        coupon[0].userId=user[0].id
         coupon[0].isValid=false
         await coupon[0].save()
         res.send({
