@@ -21,6 +21,32 @@ const Counter=sequelize.define("Counter", {
   },
 });
 
+const User=sequelize.define("User",{
+  id:{
+    type: DataTypes.INTEGER,
+    primaryKey:true,
+    autoIncrement:true,
+    comment:'主键'
+  },
+  name: {
+    type: DataTypes.STRING,
+    comment: '用户名(openid)',
+    unique:true
+  },
+  balance:{
+    type: DataTypes.DECIMAL(10,1),
+    comment: '余额',
+    defaultValue:0
+  },
+  password:{
+    type:DataTypes.STRING(30),
+    comment:'密码',
+    defaultValue:''
+  }
+},{
+  timestamps: false
+})
+
 const List=sequelize.define("List",{
   id:{
     type: DataTypes.INTEGER,
@@ -85,5 +111,6 @@ module.exports = {
   init,
   Counter,
   List,
-  Good
+  Good,
+  User
 };
