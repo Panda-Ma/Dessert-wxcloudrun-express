@@ -173,7 +173,7 @@ const Order=sequelize.define("Order",{
 })
 
 const Detail=sequelize.define("Detail",{
-  OrderId:{
+  OrderId:{ //大写
     type: DataTypes.INTEGER,
     comment:'订单id',
     references: {
@@ -181,7 +181,7 @@ const Detail=sequelize.define("Detail",{
       key:'id'
     }
   },
-  GoodId: {
+  GoodId: { //大写
     type: DataTypes.INTEGER,
     comment: '商品id',
     references: {
