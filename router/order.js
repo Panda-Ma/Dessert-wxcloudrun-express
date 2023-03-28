@@ -30,7 +30,7 @@ router.post('/submitOrder', async (req, res) => {
             openid: openid,
         },
     })
-    if (user.balance < sum) {
+    if (Number(user.balance) < sum) {
         res.send({
             code: 500,
             data: {
