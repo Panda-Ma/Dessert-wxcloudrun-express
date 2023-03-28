@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {List, Good,Order,Detail} = require('../db')
+// 查询已上架商品列表
 router.get('/getInfo', async (req, res) => {
     const list = await List.findAll()
     let goods = []
@@ -30,6 +31,11 @@ router.post('/submitOrder', async (req, res) => {
             openid: openid,
         },
     })
+    res.send({
+        code:200,
+        data:{msg:'test'}
+    })
+    return;
     if (Number(user.balance) < sum) {
         res.send({
             code: 500,
