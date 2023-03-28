@@ -92,7 +92,12 @@ const Good=sequelize.define('Good',{
       key:'id'
     },
     comment:'外键'
-  }
+  },
+  state: {
+    type: DataTypes.STRING(20),
+    defaultValue: '上架',
+    comment: '商品上架状态 (上架/下架)',
+  },
 },{
   timestamps: false
 })
@@ -130,6 +135,73 @@ const Coupon=sequelize.define("Coupon",{
 },{
   timestamps: false
 })
+const Order=sequelize.define("Order",{
+  id:{
+    type: DataTypes.INTEGER,
+    primaryKey:true,
+    autoIncrement:true,
+    comment:'主键'
+  },
+  userId:{
+    type: DataTypes.INTEGER,
+    references: {
+      model:User,
+      key:'id'
+    },
+    comment:'下单用户id'
+  },
+  sum:{
+    type: DataTypes.DECIMAL(10,1),
+    comment: '订单总价',
+  },
+  num:{
+    type: DataTypes.INTEGER,
+    comment:'商品总数'
+  },
+  note:{
+    type:DataTypes.STRING(50),
+    defaultValue: '',
+    comment:'订单备注'
+  },
+  state: {
+    type: DataTypes.STRING(20),
+    defaultValue: '进行中',
+    comment: '订单状态(进行中/已完成)',
+  },
+},{
+  timestamps: false
+})
+
+const Detail=sequelize.define("Detail",{
+  orderId:{
+    type: DataTypes.INTEGER,
+    comment:'订单id',
+    references: {
+      model:Order,
+      key:'id'
+    }
+  },
+  goodId: {
+    type: DataTypes.INTEGER,
+    comment: '商品id',
+    references: {
+      model:Good,
+      key:'id'
+    }
+  },
+  num:{
+    type: DataTypes.INTEGER,
+    comment:'商品个数'
+  },
+  actualPrice:{
+    type: DataTypes.DECIMAL(10,1),
+    comment: '实际购买价格',
+  }
+},{
+  timestamps: false
+})
+Order.belongsToMany(Good,{through:Detail})
+Good.belongsToMany(Order,{through:Detail})
 
 // 数据库初始化方法
 async function init() {
@@ -147,5 +219,7 @@ module.exports = {
   List,
   Good,
   User,
-  Coupon
+  Coupon,
+  Order,
+  Detail
 };
