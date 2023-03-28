@@ -61,7 +61,7 @@ const List=sequelize.define("List",{
   timestamps: false
 })
 
-const Good=sequelize.define('good',{
+const Good=sequelize.define('Good',{
   id:{
     type: DataTypes.INTEGER,
     primaryKey:true,
