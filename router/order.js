@@ -68,4 +68,34 @@ router.post('/submitOrder', async (req, res) => {
 
 })
 
+router.get('/getOrder',async (req,res)=>{
+    const openid = req.headers['x-wx-openid']
+    const [user, created] = await User.findOrCreate({
+        where: {
+            openid: openid,
+        },
+    })
+    const order=await Order.findAll({
+        where:{
+            userId:user.id
+        }
+    })
+    if(JSON.stringify(order) === '{}'){
+        res.send({
+            code:500,
+            data:{
+                order:[],
+                msg:'未有订单'
+            }
+        })
+    }else{
+        res.send({
+            code:200,
+            data:{
+                order
+            }
+        })
+    }
+})
+
 module.exports = router

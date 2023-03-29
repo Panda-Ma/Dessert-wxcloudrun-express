@@ -11,7 +11,6 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
     port,
     dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
     timezone: '+08:00',
-   
 });
 
 // 定义数据模型
