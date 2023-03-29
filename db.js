@@ -10,6 +10,10 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
     host,
     port,
     dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+    timezone: '+8:00',
+    dialectOptions: {
+        useUTC: false
+    }
 });
 
 // 定义数据模型
@@ -168,9 +172,13 @@ const Order = sequelize.define("Order", {
         defaultValue: '进行中',
         comment: '订单状态(进行中/已完成)',
     },
-
+    time: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        comment:'订单创建时间'
+    },
 }, {
-    updateAt:false
+    timestamps: false,
 })
 
 const Detail = sequelize.define("Detail", {
