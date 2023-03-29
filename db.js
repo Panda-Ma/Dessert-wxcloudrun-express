@@ -10,10 +10,8 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
     host,
     port,
     dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
-    timezone: '+8:00',
-    dialectOptions: {
-        useUTC: false
-    }
+    timezone: '+08:00',
+   
 });
 
 // 定义数据模型
