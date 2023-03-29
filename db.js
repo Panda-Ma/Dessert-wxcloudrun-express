@@ -168,13 +168,9 @@ const Order = sequelize.define("Order", {
         defaultValue: '进行中',
         comment: '订单状态(进行中/已完成)',
     },
-    time: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        comment:'订单创建时间'
-    },
+
 }, {
-    timestamps: false,
+    updateAt:false
 })
 
 const Detail = sequelize.define("Detail", {
