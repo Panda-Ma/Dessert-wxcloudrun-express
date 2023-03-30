@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {List, Good,Order,Detail,User} = require('../db')
+const {List, Good, Order, Detail, User} = require('../db')
 // 查询已上架商品列表
 router.get('/getInfo', async (req, res) => {
     const list = await List.findAll()
@@ -10,7 +10,7 @@ router.get('/getInfo', async (req, res) => {
         const good = await Good.findAll({
             where: {
                 listId: listElement.id,
-                state:'上架'
+                state: '上架',
             },
         })
         goods.push(good)
@@ -68,34 +68,70 @@ router.post('/submitOrder', async (req, res) => {
 
 })
 
-router.get('/getOrder',async (req,res)=>{
+router.get('/getOrder', async (req, res) => {
     const openid = req.headers['x-wx-openid']
     const [user, created] = await User.findOrCreate({
         where: {
             openid: openid,
         },
     })
-    const order=await Order.findAll({
-        where:{
-            userId:user.id
-        }
+    const order = await Order.findAll({
+        where: {
+            userId: user.id,
+        },
     })
-    if(JSON.stringify(order) === '{}'){
+    if (JSON.stringify(order) === '{}') {
         res.send({
-            code:500,
-            data:{
-                order:[],
-                msg:'未有订单'
-            }
+            code: 500,
+            data: {
+                order: [],
+                msg: '未有订单',
+            },
         })
-    }else{
+    } else {
         res.send({
-            code:200,
-            data:{
-                order
-            }
+            code: 200,
+            data: {
+                order: order.reverse(),
+            },
         })
     }
 })
 
+router.get('getOrderDetail', async (req, res) => {
+    const {orderId} = req.params
+    const order = Order.findAll({
+        where: {
+            orderId,
+        },
+    })
+    const detail = Detail.findAll({
+        where: {
+            OrderId: orderId,
+        },
+    })
+    const goods = []
+    for (const item of detail) {
+        const good = Good.findAll({
+            where: {
+                id: item.GoodId,
+            },
+        })
+        goods.push({
+            id: item.GoodId,
+            num: item.num,
+            price: item.actualPrice,
+            name: good[0].name,
+            img: good[0].img,
+            intro: good[0].intro,
+        })
+    }
+    res.send({
+        code: 200,
+        data: {
+            order,
+            goods,
+        },
+    })
+})
 module.exports = router
