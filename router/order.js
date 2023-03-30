@@ -97,7 +97,7 @@ router.get('/getOrder', async (req, res) => {
             code: 200,
             data: {
                 order: order.reverse(),
-                goods:goods.reverse()
+                goods:goods
             },
         })
     }
