@@ -107,6 +107,7 @@ router.get('/getOrderDetail', async (req, res) => {
     const order = await Order.findAll({
         where: {
             id:orderId,
+            params:req.params
         },
     })
     const detail = await Detail.findAll({
