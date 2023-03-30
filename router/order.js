@@ -100,19 +100,19 @@ router.get('/getOrder', async (req, res) => {
 
 router.get('getOrderDetail', async (req, res) => {
     const {orderId} = req.params
-    const order = Order.findAll({
+    const order = await Order.findAll({
         where: {
             orderId,
         },
     })
-    const detail = Detail.findAll({
+    const detail = await Detail.findAll({
         where: {
             OrderId: orderId,
         },
     })
     const goods = []
     for (const item of detail) {
-        const good = Good.findAll({
+        const good = await Good.findAll({
             where: {
                 id: item.GoodId,
             },
