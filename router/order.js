@@ -89,10 +89,15 @@ router.get('/getOrder', async (req, res) => {
             },
         })
     } else {
+        let goods=[]
+        for(const item of order){
+            goods.push(getGoods(item.id))
+        }
         res.send({
             code: 200,
             data: {
                 order: order.reverse(),
+                goods:goods.reverse()
             },
         })
     }
@@ -105,6 +110,16 @@ router.get('/getOrderDetail', async (req, res) => {
             id: orderId,
         },
     })
+   const goods=getGoods(orderId)
+    res.send({
+        code: 200,
+        data: {
+            order: order[0],
+            goods,
+        },
+    })
+})
+const getGoods=async (orderId)=>{
     const detail = await Detail.findAll({
         where: {
             OrderId: orderId,
@@ -126,12 +141,6 @@ router.get('/getOrderDetail', async (req, res) => {
             intro: good[0].intro,
         })
     }
-    res.send({
-        code: 200,
-        data: {
-            order: order[0],
-            goods,
-        },
-    })
-})
+    return goods
+}
 module.exports = router

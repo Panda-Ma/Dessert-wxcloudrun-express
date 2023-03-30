@@ -59,7 +59,7 @@ router.post('/redeem', async (req, res) => {
         res.send({
             code: 200,
             data: {
-                msg: '兑换成功',
+                msg: '成功兑换¥'+coupon[0].limit,
             },
         })
     } else {
