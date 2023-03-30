@@ -99,11 +99,7 @@ router.get('/getOrder', async (req, res) => {
 })
 
 router.get('/getOrderDetail', async (req, res) => {
-    const {orderId} = req.query
-    res.send({
-        data: {orderId, query: req.query},
-    })
-    return
+    const orderId = Number(req.query.orderId)
     const order = await Order.findAll({
         where: {
             id: orderId,
