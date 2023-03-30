@@ -98,7 +98,7 @@ router.get('/getOrder', async (req, res) => {
     }
 })
 
-router.get('getOrderDetail', async (req, res) => {
+router.get('/getOrderDetail', async (req, res) => {
     const {orderId} = req.params
     const order = await Order.findAll({
         where: {
@@ -129,7 +129,7 @@ router.get('getOrderDetail', async (req, res) => {
     res.send({
         code: 200,
         data: {
-            order,
+            order: order[0],
             goods,
         },
     })
