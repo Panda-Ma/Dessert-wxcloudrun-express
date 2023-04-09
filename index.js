@@ -8,7 +8,7 @@ const app = express();
 const index = require('./router/index.js')
 const order = require('./router/order.js')
 const my = require('./router/my.js')
-
+const cms=require('./router/cms')
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -19,6 +19,7 @@ app.use(logger);
 app.use('/', index)
 app.use('/order', order)
 app.use('/my', my)
+app.use('/cms',cms)
 
 const port = process.env.PORT || 80;
 
