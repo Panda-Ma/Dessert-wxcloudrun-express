@@ -39,11 +39,6 @@ const User = sequelize.define("User", {
         comment: '余额',
         defaultValue: 0,
     },
-    password: {
-        type: DataTypes.STRING(30),
-        comment: '密码',
-        defaultValue: '',
-    },
 }, {
     timestamps: false,
 })
