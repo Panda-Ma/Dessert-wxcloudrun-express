@@ -62,7 +62,8 @@ router.get('/good/getAll',async (req,res)=>{
     }
     res.send({
         code:200,
-        data:arr
+        data:arr,
+        flag:Array.isArray(good[0])
     })
 })
 
