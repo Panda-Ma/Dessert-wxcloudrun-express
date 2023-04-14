@@ -64,6 +64,7 @@ router.get('/good/getAll', async (req, res) => {
             intro:item.intro,
             price:item.price,
             listId: item.listId,
+            state:item.state,
             list:list.name
         })
     }
