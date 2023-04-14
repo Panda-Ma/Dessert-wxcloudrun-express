@@ -58,7 +58,7 @@ router.get('/good/getAll', async (req, res) => {
         const list = await List.findByPk(item.listId)
         // item是类数组，有prototype上的属性
         let obj=Object.assign({list: list.name,item})
-        arr.push(item)
+        arr.push(obj)
     }
     res.send({
         code: 200,
