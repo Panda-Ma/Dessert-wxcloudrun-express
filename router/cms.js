@@ -80,7 +80,7 @@ router.get('/good/search',async (req,res)=>{
         {
             where:{
                 name:{
-                    [op.substring]:keyword
+                    [Op.substring]:keyword
                 }
             }
         }
