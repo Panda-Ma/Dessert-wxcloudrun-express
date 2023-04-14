@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { Op } = require("sequelize");
 const {List, Good, Order, Detail, User, Coupon, Counter} = require('../db')
 
 router.post('/login', async (req, res) => {
@@ -85,27 +86,25 @@ router.get('/good/search', async (req, res) => {
             },
         },
     )
-    res.send({code: 200, good})
-    //
-    // let arr = []
-    // for (const item of good) {
-    //     const list = await List.findByPk(item.listId)
-    //     // item是类数组，有prototype上的属性. 无论什么方式都不能遍历自身属性 来构造一个对象
-    //     arr.push({
-    //         id: item.id,
-    //         name: item.name,
-    //         img: item.img,
-    //         intro: item.intro,
-    //         price: item.price,
-    //         listId: item.listId,
-    //         state: item.state,
-    //         list: list.name,
-    //     })
-    // }
-    // res.send({
-    //     code: 200,
-    //     data: arr,
-    // })
+    let arr = []
+    for (const item of good) {
+        const list = await List.findByPk(item.listId)
+        // item是类数组，有prototype上的属性. 无论什么方式都不能遍历自身属性 来构造一个对象
+        arr.push({
+            id: item.id,
+            name: item.name,
+            img: item.img,
+            intro: item.intro,
+            price: item.price,
+            listId: item.listId,
+            state: item.state,
+            list: list.name,
+        })
+    }
+    res.send({
+        code: 200,
+        data: arr,
+    })
 
 })
 
