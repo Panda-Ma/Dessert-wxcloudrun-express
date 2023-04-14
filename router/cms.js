@@ -57,13 +57,12 @@ router.get('/good/getAll',async (req,res)=>{
     for(const item of good){
         const list=await List.findByPk(item.listId)
         arr.push({
-            item,list:list.name
+            ...Object.entries(item),list:list.name
         })
     }
     res.send({
         code:200,
         data:arr,
-        flag:Array.isArray(good[0])
     })
 })
 
