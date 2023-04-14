@@ -56,7 +56,8 @@ router.get('/good/getAll', async (req, res) => {
     let arr = []
     for (const item of good) {
         const list = await List.findByPk(item.listId)
-        item.list=list.name
+        // item是类数组，有prototype上的属性
+        let obj=Object.assign({list: list.name,item})
         arr.push(item)
     }
     res.send({
