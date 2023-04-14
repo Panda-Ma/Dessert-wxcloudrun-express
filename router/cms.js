@@ -50,13 +50,14 @@ router.get('/home/getDessertNum', async (req, res) => {
         data:arr
     })
 })
+// 点心
 router.get('/good/getAll',async (req,res)=>{
     const good=await Good.findAll()
     let arr=[]
     for(const item of good){
         const list=await List.findByPk(item.listId)
         arr.push({
-            ...item,list:list.name
+            item,list:list.name
         })
     }
     res.send({
@@ -64,4 +65,5 @@ router.get('/good/getAll',async (req,res)=>{
         data:arr
     })
 })
+
 module.exports = router
