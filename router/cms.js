@@ -56,14 +56,16 @@ router.get('/good/getAll', async (req, res) => {
     let arr = []
     for (const item of good) {
         const list = await List.findByPk(item.listId)
-        // item是类数组，有prototype上的属性
-        let obj={list:list.name}
-       for(let key in item){
-           if(item.hasOwnProperty(key)){
-               obj[key]=item[key]
-           }
-       }
-        arr.push(obj)
+        // item是类数组，有prototype上的属性. 无论什么方式都不能遍历自身属性 来构造一个对象
+        arr.push({
+            id:item.id,
+            name: item.name,
+            img: item.img,
+            intro:item.intro,
+            price:item.price,
+            listId: item.listId,
+            list:list.name
+        })
     }
     res.send({
         code: 200,
