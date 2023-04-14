@@ -58,14 +58,14 @@ router.get('/good/getAll', async (req, res) => {
         const list = await List.findByPk(item.listId)
         // item是类数组，有prototype上的属性. 无论什么方式都不能遍历自身属性 来构造一个对象
         arr.push({
-            id:item.id,
+            id: item.id,
             name: item.name,
             img: item.img,
-            intro:item.intro,
-            price:item.price,
+            intro: item.intro,
+            price: item.price,
             listId: item.listId,
-            state:item.state,
-            list:list.name
+            state: item.state,
+            list: list.name,
         })
     }
     res.send({
@@ -74,40 +74,38 @@ router.get('/good/getAll', async (req, res) => {
     })
 })
 
-router.get('/good/search',async (req,res)=>{
-    const keyword=req.query.keyword
-    res.send({
-        code:200,
-        keyword
-    })
-    // const good=await Good.findAll(
-    //     {
-    //         where:{
-    //             name:{
-    //                 [Op.substring]:keyword
-    //             }
-    //         }
-    //     }
-    // )
+router.get('/good/search', async (req, res) => {
+    const keyword = req.query.keyword
+    const good = await Good.findAll(
+        {
+            where: {
+                name: {
+                    [Op.substring]: keyword,
+                },
+            },
+        },
+    )
+    res.send({code: 200, good})
+    //
     // let arr = []
     // for (const item of good) {
     //     const list = await List.findByPk(item.listId)
     //     // item是类数组，有prototype上的属性. 无论什么方式都不能遍历自身属性 来构造一个对象
     //     arr.push({
-    //         id:item.id,
+    //         id: item.id,
     //         name: item.name,
     //         img: item.img,
-    //         intro:item.intro,
-    //         price:item.price,
+    //         intro: item.intro,
+    //         price: item.price,
     //         listId: item.listId,
-    //         state:item.state,
-    //         list:list.name
+    //         state: item.state,
+    //         list: list.name,
     //     })
     // }
-    res.send({
-        code: 200,
-        data: arr,
-    })
+    // res.send({
+    //     code: 200,
+    //     data: arr,
+    // })
 
 })
 
