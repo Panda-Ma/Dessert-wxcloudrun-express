@@ -46,23 +46,22 @@ router.get('/home/getDessertNum', async (req, res) => {
         })
     }
     res.send({
-        code:200,
-        data:arr
+        code: 200,
+        data: arr,
     })
 })
 // 点心
-router.get('/good/getAll',async (req,res)=>{
-    const good=await Good.findAll()
-    let arr=[]
-    for(const item of good){
-        const list=await List.findByPk(item.listId)
-        arr.push({
-            ...Object.entries(item),list:list.name
-        })
+router.get('/good/getAll', async (req, res) => {
+    const good = await Good.findAll()
+    let arr = []
+    for (const item of good) {
+        const list = await List.findByPk(item.listId)
+        item.list=list.name
+        arr.push(item)
     }
     res.send({
-        code:200,
-        data:arr,
+        code: 200,
+        data: arr,
     })
 })
 
