@@ -62,7 +62,7 @@ router.get('/good/getAll', async (req, res) => {
         term.forEach(item=>{
             obj[item[0]]=item[1]
         })
-        arr.push(obj)
+        arr.push(obj,term)
     }
     res.send({
         code: 200,
