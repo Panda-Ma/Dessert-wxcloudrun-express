@@ -158,5 +158,16 @@ router.get('/order/getAll', async (req, res) => {
         data: order,
     })
 })
-
+router.get('/order/search', async (req, res) => {
+    const keyword = req.query.keyword
+    const order = await Order.findAll({
+        where: {
+            id: keyword,
+        },
+    })
+    res.send({
+        code: 200,
+        data: order,
+    })
+})
 module.exports = router
