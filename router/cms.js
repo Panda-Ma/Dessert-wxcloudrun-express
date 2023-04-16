@@ -116,4 +116,17 @@ router.get('/good/getList',async(req,res)=>{
     })
 })
 
+router.post('/good/edit',async(req,res)=>{
+    let {id,name,img,intro,price,listId,state}=req.body
+    await List.update({name,img,intro,price,listId,state},{
+        where:{
+            id:id
+        }
+    })
+    res.send({
+        code:200,
+        msg:'修改成功'
+    })
+})
+
 module.exports = router
