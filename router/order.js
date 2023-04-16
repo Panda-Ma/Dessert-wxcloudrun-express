@@ -120,7 +120,7 @@ router.get('/getOrderDetail', async (req, res) => {
         goods.push({
             id: item.GoodId,
             num: item.num,
-            price: item.actualPrice,
+            price: item.actualPrice,//这里应该返回的是实际价格（价格可能被修改）
             name: good[0].name,
             img: good[0].img,
             intro: good[0].intro,

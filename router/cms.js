@@ -186,5 +186,18 @@ router.get('/order/searchIncomplete', async (req, res) => {
         data: order,
     })
 })
-
+router.post('/good/setOrderCompleted', async (req, res) => {
+    let {id} = req.body
+    const order = await Order.updata({
+        state: '已完成',
+    }, {
+        where: {
+            id,
+        },
+    })
+    res.send({
+        code: 200,
+        data: order,
+    })
+})
 module.exports = router
