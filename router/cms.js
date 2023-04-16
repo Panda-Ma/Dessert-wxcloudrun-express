@@ -160,9 +160,25 @@ router.get('/order/getAll', async (req, res) => {
 })
 router.get('/order/search', async (req, res) => {
     const keyword = req.query.keyword
-    const order = await Order.findAll({
+    let order = []
+    if (keyword == '') {
+        order = await Order.findAll()
+    } else {
+        order = await Order.findAll({
+            where: {
+                id: keyword,
+            },
+        })
+    }
+    res.send({
+        code: 200,
+        data: order,
+    })
+})
+router.get('/order/searchIncomplete', async (req, res) => {
+    let order = await Order.findAll({
         where: {
-            id: keyword,
+            state: '进行中',
         },
     })
     res.send({
@@ -170,4 +186,5 @@ router.get('/order/search', async (req, res) => {
         data: order,
     })
 })
+
 module.exports = router
