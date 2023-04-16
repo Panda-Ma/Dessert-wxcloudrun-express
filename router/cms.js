@@ -139,14 +139,23 @@ router.post('/good/edit', async (req, res) => {
     })
 })
 
-router.post('/good/category',async (req,res)=>{
-    let {name}=req.body
-    const list=await List.create({
+router.post('/good/category', async (req, res) => {
+    let {name} = req.body
+    const list = await List.create({
         name,
     })
     res.send({
-        code:200,
-        data:list
+        code: 200,
+        data: list,
+    })
+})
+
+// 订单order
+router.get('/order/getAll', async (req, res) => {
+    const order = await Order.findAll()
+    res.send({
+        code: 200,
+        data: order,
     })
 })
 
