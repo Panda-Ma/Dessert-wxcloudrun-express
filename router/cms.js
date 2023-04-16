@@ -118,7 +118,7 @@ router.get('/good/getList',async(req,res)=>{
 
 router.post('/good/edit',async(req,res)=>{
     let {id,name,img,intro,price,listId,state}=req.body
-    await List.update({name,img,intro,price,listId,state},{
+    await Good.update({name,img,intro,price,listId,state},{
         where:{
             id:id
         }
