@@ -200,4 +200,30 @@ router.post('/order/setOrderCompleted', async (req, res) => {
         data: order,
     })
 })
+
+// 优惠卷coupon
+router.get('/coupon/getAll', async (req, res) => {
+    const coupon = await Coupon.findAll()
+    res.send({
+        code: 200,
+        data: coupon,
+    })
+})
+router.get('/coupon/search', async (req, res) => {
+    const keyword = req.query.keyword
+    let coupon = []
+    if (keyword == '') {
+        coupon = await Coupon.findAll()
+    } else {
+        coupon = await Coupon.findAll({
+            where: {
+                code: keyword,
+            },
+        })
+    }
+    res.send({
+        code: 200,
+        data: coupon,
+    })
+})
 module.exports = router
