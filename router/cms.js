@@ -217,13 +217,28 @@ router.get('/coupon/search', async (req, res) => {
     } else {
         coupon = await Coupon.findAll({
             where: {
-                code: keyword,
+                code: {
+                    [Op.substring]: keyword,
+                },
             },
         })
     }
     res.send({
         code: 200,
         data: coupon,
+    })
+})
+
+router.post('/coupon/add', async (req, res) => {
+    let {num, limit} = req.body
+    for (let i = 0; i < num; i++) {
+        await Coupon.create({
+            limit,
+        })
+    }
+    res.send({
+        code: 200,
+        msg: '生成成功',
     })
 })
 module.exports = router
