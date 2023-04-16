@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get("/home/getNum", async (req, res) => {
-    const dessertNum = await Counter.count()
+    const dessertNum = await Good.count()
     const userNum = await User.count()
     const orderNum = await Order.count()
     res.send({
@@ -188,7 +188,7 @@ router.get('/order/searchIncomplete', async (req, res) => {
 })
 router.post('/order/setOrderCompleted', async (req, res) => {
     let {id} = req.body
-    const order = await Order.updata({
+    const order = await Order.update({
         state: '已完成',
     }, {
         where: {
