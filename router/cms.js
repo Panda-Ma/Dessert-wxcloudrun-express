@@ -115,7 +115,17 @@ router.get('/good/getList',async(req,res)=>{
         data:list
     })
 })
-
+router.post('/good/add',async(req,res)=>{
+    let {name,img,intro,price,listId,state}=req.body
+    const good=await Good.create({
+        name,img,intro,price,listId,state
+    })
+    res.send({
+        code:200,
+        msg:'添加成功',
+        data:good
+    })
+})
 router.post('/good/edit',async(req,res)=>{
     let {id,name,img,intro,price,listId,state}=req.body
     await Good.update({name,img,intro,price,listId,state},{
