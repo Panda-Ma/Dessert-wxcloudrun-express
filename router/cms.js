@@ -108,4 +108,12 @@ router.get('/good/search', async (req, res) => {
 
 })
 
+router.get('/good/getList',async(req,res)=>{
+    const list=await List.findAll()
+    res.send({
+        code:200,
+        data:list
+    })
+})
+
 module.exports = router
