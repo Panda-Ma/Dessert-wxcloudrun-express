@@ -186,7 +186,7 @@ router.get('/order/searchIncomplete', async (req, res) => {
         data: order,
     })
 })
-router.post('/good/setOrderCompleted', async (req, res) => {
+router.post('/order/setOrderCompleted', async (req, res) => {
     let {id} = req.body
     const order = await Order.updata({
         state: '已完成',
